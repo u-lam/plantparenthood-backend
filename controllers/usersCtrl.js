@@ -1,10 +1,11 @@
 const db = require('../models');
 
-const index = (req, res) => {
-  db.User.find({}, (err, foundUsers) => {
-    if (err) return res.status(400).json({status: 400, error: 'Can"t get users'});
-    
-    return res.json(foundUsers);
+
+const index =  (req, res) => {
+ db.User.find({}, (err, foundUsers) => {
+  if (err) return res.status(400).json({status: 400, error: 'Can"t get users'});
+  
+  return res.json(foundUsers);
   });
 };
 
@@ -16,6 +17,7 @@ const show = (req, res) => {
     return res.json(foundUser);
   });
 };
+
 
 const create = (req, res) => {
   db.User.create(req.body, (err, newUser) => {
@@ -33,6 +35,7 @@ const update = (req, res) => {
     return res.json(updatedUser)
   });
 };
+
 
 const destroy = (req, res) => {
   db.User.findByIdAndDelete(req.params.id, (err, deletedUser)=> {
