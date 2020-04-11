@@ -1,21 +1,31 @@
 const db = require('../models');
 
+// const index = async (req, res) => {
+//   try {
+//     const plants = await db.Plant.find({ user: req.user._id})
+//     if (!plants) return res.status(404).json({error: 'Can"t get plants'});
+//     return res.json(plants)
+//   } catch (err) {
+//     return res.status(500).json('error on index')
+//   }
+// }
+
+// no user associations
 const index = async (req, res) => {
   try {
-    const plants = await db.Plant.find({ user: req.user._id})
-    if (!plants) return res.status(404).json({error: 'Can"t get plants'});
-    return res.json(plants)
+    const plants = await db.Plant.find();
+    if (!plants) return res.status(404).json({error: 'Cannot get plants'})
+    return res.json(plants);
   } catch (err) {
     return res.status(500).json('error on index')
-  }
-}
+  };
+};
 
 
 // const show = (req, res) => {
 //   db.Plant.findById(req.params.id)
 //   .populate('user', 'firstName lastName _id')
-//   .exec((err, foundPlant) => {
-//       if (err) return res.status(404).json({status: 400, error: 'Can"t find plant with this ID.'});
+//   .exec((err, foundPlant) => {//       if (err) return res.status(404).json({status: 400, error: 'Can"t find plant with this ID.'});
       
 //       return res.json(foundPlant)
 //   })

@@ -2,8 +2,8 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const session = require('express-session');
-const MongoStore = require('connect-mongo')(session);
+// const session = require('express-session');
+// const MongoStore = require('connect-mongo')(session);
 
 // require('dotenv').config();
 
@@ -27,7 +27,7 @@ app.use(bodyParser.json());
 
 // app.use(
 //   session({
-//     store: new MongoStore({ url: "mongodb://localhost:27017/plants"}),
+//     store: new MongoStore({ url: process.env.MONGODB_URI }),
 //     secret: process.env.SESSION_SECRET, 
 //     resave: false,
 //     saveUninitialized: false,
@@ -38,15 +38,10 @@ app.use(bodyParser.json());
 // )
 
 // Routes
-app.use('./api/v1', routes.api);
+app.use('/api/v1', routes.api);
 
 app.get('/', (req, res) => {
   res.send('This is the api page');
-});
-
-// Handle error
-app.use('/api/*', (req, res) => {
-  res.status(404).json({status: 404, error: 'Something went wrong. Try again'})
 });
 
 app.listen(PORT, () => console.log(`Server is running at http://localhost:${PORT}`));
