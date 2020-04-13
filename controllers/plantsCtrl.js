@@ -1,18 +1,18 @@
 const db = require('../models');
 
 // SHOW ALL PLANTS, REGARDLESS OF ASSC
-// const index = async (req, res) => {
-//   try {
-//     const plants = await db.Plant.find()
-//     if (!plants) return res.status(404).json({error: 'Cannot get plants'})
-//     return res.json(plants);
-//   } catch (err) {
-//     return res.status(500).json('error on index')
-//   };
-// };
+const index = async (req, res) => {
+  try {
+    const plants = await db.Plant.find()
+    if (!plants) return res.status(404).json({error: 'Cannot get plants'})
+    return res.json(plants);
+  } catch (err) {
+    return res.status(500).json('error on index')
+  };
+};
 
 // SHOW USER'S PLANTS; NEED TO CHANGE VAR NAME
-const index = async (req, res) => {
+const indexUser = async (req, res) => {
   try {
     const plants = await db.Plant.find({ user: req.user._id })
     if (!plants) return res.status(404).json({error: 'Cannot get plants'})
@@ -53,7 +53,7 @@ const create = async (req, res) => {
       name: req.body.name,
       sunlight: req.body.sunlight,
       water: req.body.water,
-      user: req.user._id,
+      user: req.user._id
     }
     await db.Plant.create(newPlant);
     if (!newPlant) return res.status(404).json({error: 'Plant could not be created'});
@@ -88,6 +88,7 @@ const destroy = async (req, res) => {
 
 module.exports = {
   index,
+  indexUser,
   show,
   create,
   update,
