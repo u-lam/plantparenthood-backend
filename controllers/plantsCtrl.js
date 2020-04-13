@@ -1,6 +1,6 @@
 const db = require('../models');
 
-// no user associations. TESTED. Don't want to protect this so a user can see all plants
+// SHOW ALL PLANTS, REGARDLESS OF ASSC
 // const index = async (req, res) => {
 //   try {
 //     const plants = await db.Plant.find()
@@ -11,13 +11,15 @@ const db = require('../models');
 //   };
 // };
 
-const index = (req, res) => {
-  db.Plant.find({})
-  .populate('user', 'firstName lastName _id')
-  .exec((err, allPlants) => {
-    if (err) return res.status(404).json({status: 400, error: 'Cannot get all plants.'});
-    return res.json(allPlants)
-  })
+// SHOW USER'S PLANTS; NEED TO CHANGE VAR NAME
+const index = async (req, res) => {
+  try {
+    const plants = await db.Plant.find({ user: req.user._id })
+    if (!plants) return res.status(404).json({error: 'Cannot get plants'})
+    return res.json(plants)
+  } catch (err) {
+    return res.status(500)
+  }
 }
 
 // no user associations. TESTED. Don't need to protect so anyone can find this plant
@@ -37,21 +39,23 @@ const show = async (req, res) => {
 
 // no user associations. TESTED. Will need user auth
 const create = async (req, res) => {
-  console.log(req.body)
-  console.log(req.body.user)  //undefined
+  
+  console.log('creating a new plant: ', req.body)
+  console.log(req.user)
+  //undefined
  
-  // if (!decodedUser) return res.status(401).json({error: 'You are not authorized. Please log in'})
-
   if (!req.body.name) return res.status(400).json({error: 'Please enter a name for this plant'})
   if (!req.body.sunlight) return res.status(400).json({error: 'Please let us know how much sunlight this plant requires.'})
   if (!req.body.water) return res.status(400).json({error: 'Please let us know how much water this plant requires.'})
 
   try {
-    // req.body.user = req.user._id;
-    // req.body.user.firstName = req.user.firstName
-    console.log('hi')
-  
-    const newPlant = await db.Plant.create(req.body);
+    const newPlant = {
+      name: req.body.name,
+      sunlight: req.body.sunlight,
+      water: req.body.water,
+      user: req.user._id,
+    }
+    await db.Plant.create(newPlant);
     if (!newPlant) return res.status(404).json({error: 'Plant could not be created'});
     return res.json(newPlant);
   } catch (err) {
