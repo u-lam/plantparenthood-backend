@@ -16,17 +16,35 @@ const plants = [
   {
     name: "Aloe",
     sunlight: "6 hrs a day",
-    water: "Every 2 weeks"
+    water: "Every 2 weeks",
+    user: {
+      _id: "5e9205da158d8b156d764218",
+      firstName: "TEST",
+      lastName: "again",
+    }
   },
   {
     name: "Vera",
     sunlight: "8 hrs a day",
-    water: "Once a week"
+    water: "Once a week",
+
   },
   {
     name: "Cactus",
     sunlight: "12 hrs a day",
-    water: "Once a month"
+    water: "Once a month",
+  
+  },
+  {
+    name: "Sunshine",
+    sunlight: "12 hrs a day",
+    water: "Every week",
+   
+  },
+  {
+    name: "Spooks",
+    sunlight: "6 hrs a day",
+    water: "Every 2 weeks",
   }
 ]
 

@@ -2,13 +2,16 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
+
+// ISSUES:
 // const session = require('express-session');
 // const MongoStore = require('connect-mongo')(session);
 
-// require('dotenv').config();
+require("dotenv").config();
 
 // port, routes, db
-const PORT = process.env.PORT || 4000;
+// const PORT = process.env.PORT || 4100;
+const PORT = 4100;
 const routes = require('./routes');
 const db = require('./models');
 
@@ -27,8 +30,8 @@ app.use(bodyParser.json());
 
 // app.use(
 //   session({
-//     store: new MongoStore({ url: process.env.MONGODB_URI }),
-//     secret: process.env.SESSION_SECRET, 
+//     store: new MongoStore({ url: "mongodb://localhost:27017/plants" }),
+//     secret: capstone, 
 //     resave: false,
 //     saveUninitialized: false,
 //     cookie: {

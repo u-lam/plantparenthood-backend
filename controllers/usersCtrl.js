@@ -18,15 +18,6 @@ const show = (req, res) => {
   });
 };
 
-// don't need
-// const create = (req, res) => {
-//   db.User.create(req.body, (err, newUser) => {
-//       if (err) return res.status(400).json({status: 400, error: 'Can"t create new user. Please try again'});
-      
-//       return res.json(newUser);
-//   });
-// };
-
 
 // tested
 const update = (req, res) => {
