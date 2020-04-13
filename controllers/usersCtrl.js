@@ -32,7 +32,8 @@ const update = (req, res) => {
 const destroy = (req, res) => {
   db.User.findByIdAndDelete(req.params.id, (err, deletedUser)=> {
       if (err) return res.status(400).json({status: 400, error: 'Can"t delete user. Please try again'});
-
+      // if user deletes acct, also delete their plants
+      // db.Plant.find({ user: req.params.id })
       return res.json(deletedUser);
   });
 };

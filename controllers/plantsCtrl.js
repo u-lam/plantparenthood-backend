@@ -63,7 +63,7 @@ const create = async (req, res) => {
   };
 };
 
-// Tested but will need user auth. Protect the route so only authorized users can update the plant
+
 const update = async (req, res) => {
   try {
     const updatedPlant = await db.Plant.findByIdAndUpdate({ _id: req.params.id }, req.body, { new: true });
@@ -75,7 +75,6 @@ const update = async (req, res) => {
 };
 
 
-// Tested but will need user auth. Protect the route so only authorized users can delete the plant
 const destroy = async (req, res) => {
   try {
       const deletedPlant = await db.Plant.findByIdAndDelete({ _id: req.params.id });
