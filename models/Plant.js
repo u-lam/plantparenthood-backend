@@ -6,8 +6,9 @@ const PlantSchema = new mongoose.Schema({
   water: String,
   pic: String,
   user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
+    type: mongoose.Schema.Types.Mixed,
+    ref: 'User',
+    name: String
   }
 });
 

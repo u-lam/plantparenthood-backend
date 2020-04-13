@@ -29,7 +29,9 @@ const register = (req, res) => {
         const token = jwt.sign(
           {
             email: savedUser.email,
-            _id: savedUser._id
+            _id: savedUser._id,
+            firstName: savedUser.firstName,
+            lastName: savedUser.lastName
           }, process.env.JWT_SECRET,
           { expiresIn: "30 days" } );
         return res.status(200).json({
@@ -60,7 +62,9 @@ const login = (req, res) => {
         const token = jwt.sign(
           {
             email: foundUser.email,
-            _id: foundUser._id
+            _id: foundUser._id,
+            firstName: foundUser.firstName,
+            lastName: foundUser.lastName
           }, process.env.JWT_SECRET,
           { expiresIn: "30 days"} );
 

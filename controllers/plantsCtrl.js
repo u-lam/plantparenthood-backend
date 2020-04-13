@@ -1,6 +1,6 @@
 const db = require('../models');
 
-// SHOW ALL PLANTS, REGARDLESS OF ASSC
+// SHOW ALL PLANTS WITH NO OWNER (LIST OF DONATED PLANTS)
 const index = async (req, res) => {
   try {
     const plants = await db.Plant.find()
@@ -11,7 +11,7 @@ const index = async (req, res) => {
   };
 };
 
-// SHOW USER'S PLANTS; NEED TO CHANGE VAR NAME
+// SHOW USER'S PLANTS
 const indexUser = async (req, res) => {
   try {
     const plants = await db.Plant.find({ user: req.user._id })
@@ -41,7 +41,7 @@ const show = async (req, res) => {
 const create = async (req, res) => {
   
   console.log('creating a new plant: ', req.body)
-  console.log(req.user)
+  console.log(req.user.firstName, req.user._id)
   //undefined
  
   if (!req.body.name) return res.status(400).json({error: 'Please enter a name for this plant'})
@@ -53,9 +53,13 @@ const create = async (req, res) => {
       name: req.body.name,
       sunlight: req.body.sunlight,
       water: req.body.water,
-      user: req.user._id
+      user: {
+        name: req.user.firstName,
+        id: req.user._id
+      }
     }
     await db.Plant.create(newPlant);
+    console.log(newPlant)
     if (!newPlant) return res.status(404).json({error: 'Plant could not be created'});
     return res.json(newPlant);
   } catch (err) {
