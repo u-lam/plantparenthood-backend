@@ -10,8 +10,7 @@ const cors = require('cors');
 require("dotenv").config();
 
 // port, routes, db
-// const PORT = process.env.PORT || 4100;
-const PORT = 4100;
+const PORT = process.env.PORT || 4100;
 const routes = require('./routes');
 const db = require('./models');
 

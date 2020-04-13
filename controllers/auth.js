@@ -3,7 +3,6 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 
-// tested with no env.
 const register = (req, res) => {
   
   if (!req.body.email || !req.body.password) return res.status(400).json({message: 'no email or password. These fields cannot be empty.'});
@@ -16,16 +15,13 @@ const register = (req, res) => {
  
   bcrypt.genSalt(10, (err, salt) => {
     if (err) return res.status(500).json(err);
-
     bcrypt.hash(req.body.password, salt, (err, hashedPwd) => {
-      if (err) return res.status(500).json(err);
-      
+      if (err) return res.status(500).json(err);  
       const newUser = {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
-        password: hashedPwd,
-        location: req.body.location
+        password: hashedPwd
       }
     
       db.User.create(newUser, (err, savedUser) => {
@@ -46,7 +42,7 @@ const register = (req, res) => {
   });
 };
 
-// tested! (with no env.)
+
 const login = (req, res) => {
   const user = {
     email: req.body.email,
@@ -54,7 +50,6 @@ const login = (req, res) => {
   }
 
   if (!user.email || !user.password) return res.send(400).json({message: 'Missing email or password.'})
-
   db.User.findOne({email: user.email}, (err, foundUser) => {
     if (err) return res.send(400).json(err);
     else if (!foundUser) return res.send(400).json({message: 'Cannot find this user'});
