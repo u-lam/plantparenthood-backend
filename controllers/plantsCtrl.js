@@ -53,10 +53,7 @@ const create = async (req, res) => {
       name: req.body.name,
       sunlight: req.body.sunlight,
       water: req.body.water,
-      user: {
-        name: req.user.firstName,
-        id: req.user._id
-      }
+      user: req.user.firstName,
     }
     await db.Plant.create(newPlant);
     console.log(newPlant)
