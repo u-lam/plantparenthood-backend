@@ -42,22 +42,16 @@ const create = async (req, res) => {
   
   console.log('creating a new plant: ', req.body)
   console.log(req.user.firstName, req.user._id)
-  //undefined
  
   if (!req.body.name) return res.status(400).json({error: 'Please enter a name for this plant'})
   if (!req.body.sunlight) return res.status(400).json({error: 'Please let us know how much sunlight this plant requires.'})
   if (!req.body.water) return res.status(400).json({error: 'Please let us know how much water this plant requires.'})
 
   try {
-    const newPlant = {
-      name: req.body.name,
-      sunlight: req.body.sunlight,
-      water: req.body.water,
-      user: req.user.firstName,
-    }
-    await db.Plant.create(newPlant);
-    console.log(newPlant)
+    const newPlant = await db.Plant.create(req.body);
+    console.log('this is the BE newplant: ', newPlant)
     if (!newPlant) return res.status(404).json({error: 'Plant could not be created'});
+    console.log('um.. what"s going on')
     return res.json(newPlant);
   } catch (err) {
     return res.status(500).json('error on create')
