@@ -21,9 +21,9 @@ const show = (req, res) => {
 
 // tested
 const update = (req, res) => {
-  db.User.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, updatedUser) => {
+  console.log(req.body)
+  db.User.findByIdAndUpdate(req.body.id, req.body, {new: true}, (err, updatedUser) => {
     if (err) return res.status(400).json({status: 400, error: 'Can"t find user with this ID. Please try again'});
-
     return res.json(updatedUser)
   });
 };

@@ -41,7 +41,7 @@ const create = async (req, res) => {
       name: req.body.name,
       sunlight: req.body.sunlight,
       water: req.body.water,
-      user: req.user.firstName
+      user: req.user._id
     }
     await db.Plant.create(newPlant);
     if (!newPlant) return res.status(404).json({error: 'Plant could not be created'});
