@@ -29,7 +29,9 @@ const register = (req, res) => {
         const token = jwt.sign(
           {
             email: savedUser.email,
-            _id: savedUser._id
+            _id: savedUser._id,
+            firstName: savedUser.firstName,
+            lastName: savedUser.lastName
           }, process.env.JWT_SECRET,
           { expiresIn: "30 days" } );
         return res.status(200).json({
@@ -49,24 +51,26 @@ const login = (req, res) => {
     password: req.body.password
   }
 
-  if (!user.email || !user.password) return res.send(400).json({message: 'Missing email or password.'})
+  if (!user.email || !user.password) return res.status(400).json({message: 'Missing email or password.'})
   db.User.findOne({email: user.email}, (err, foundUser) => {
-    if (err) return res.send(400).json(err);
-    else if (!foundUser) return res.send(400).json({message: 'Cannot find this user'});
+    if (err) return res.status(400).json(err);
+    else if (!foundUser) return res.status(400).json({message: 'Cannot find this user'});
 
     bcrypt.compare(user.password, foundUser.password, (err, match) => {
-      if (err) return res.send(400).json({message: 'Error with password'});
+      if (err) return res.status(400).json({message: 'Error with password'});
       if (match) {
         const token = jwt.sign(
           {
             email: foundUser.email,
-            _id: foundUser._id
+            _id: foundUser._id,
+            firstName: foundUser.firstName,
+            lastName: foundUser.lastName
           }, process.env.JWT_SECRET,
           { expiresIn: "30 days"} );
 
         return res.status(200).json({message: 'User Logged In', token, foundUser});
       } else {
-        return res.send(400).json(err);
+        return res.status(400).json(err);
       }
     })
   })
