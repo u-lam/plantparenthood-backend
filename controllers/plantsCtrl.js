@@ -73,11 +73,39 @@ const destroy = async (req, res) => {
   };
 };
 
+const donate = async (req, res) => {
+  try {
+    const donatedPlant = {
+      name: req.body.name,
+      sunlight: req.body.sunlight,
+      water: req.body.water,
+      user: null
+    }
+    await db.Plant.findByIdAndUpdate({ _id: req.params.id }, donatedPlant , { new: true });
+    if (!donatedPlant) return res.status(404).json({error: 'Plant could not be donated'});
+    return res.json(donatedPlant);
+
+  } catch (err) {
+    return res.status(500).json(err);
+  }; 
+}
+
+// const adopt = async (req, res) => {
+//   try {
+//     const adoptee = await db.User.findOne({ })
+//     const adoptedPlant = await db.Plant.findByIdAndUpdate({ _id: req.params.id }, { user: req.body.user}, { new: true});
+
+//   } catch (err) {
+//     return res.status(500).json(err);
+//   }
+// }
+
 module.exports = {
   index,
   indexUser,
   show,
   create,
   update,
-  destroy
+  destroy,
+  donate
 }

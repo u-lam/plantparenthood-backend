@@ -21,7 +21,8 @@ router.delete('/users/:id', verifyToken, ctrl.users.destroy);
 
 // PLANT
 router.get('/plants', ctrl.plants.index);   // plants that have been donated (no user), up for adoption
-router.get('/myplants', verifyToken, ctrl.plants.indexUser);  // plants that belong to a user
+// router.get('/myplants', verifyToken, ctrl.plants.indexUser);  // plants that belong to a user
+router.put('/myplants/:id/donate', verifyToken, ctrl.plants.donate) 
 router.get('/plants/:id', ctrl.plants.show);
 router.post('/plants', verifyToken, ctrl.plants.create);
 router.put('/plants/:id', verifyToken, ctrl.plants.update);
