@@ -74,18 +74,18 @@ const destroy = async (req, res) => {
 };
 
 const donate = async (req, res) => {
+  // console.log(req.body)
+  // console.log(req.params.id)
   try {
-    const donatedPlant = {
-      name: req.body.name,
-      sunlight: req.body.sunlight,
-      water: req.body.water,
-      user: null
-    }
-    await db.Plant.findByIdAndUpdate({ _id: req.params.id }, donatedPlant , { new: true });
+    
+    const donatedPlant = await db.Plant.findByIdAndUpdate(req.params.id, { user: null} , { new: true });
+    console.log('beep')
+    console.log(donatedPlant)
     if (!donatedPlant) return res.status(404).json({error: 'Plant could not be donated'});
     return res.json(donatedPlant);
 
   } catch (err) {
+    console.log(err)
     return res.status(500).json(err);
   }; 
 }
