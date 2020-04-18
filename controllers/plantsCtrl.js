@@ -1,6 +1,6 @@
 const db = require('../models');
 
-// SHOW ALL PLANTS WITH NO OWNER (LIST OF DONATED PLANTS)
+
 const index = async (req, res) => {
   try {
     const plants = await db.Plant.find()
@@ -11,16 +11,6 @@ const index = async (req, res) => {
   };
 };
 
-// SHOW USER'S PLANTS
-const indexUser = async (req, res) => {
-  try {
-    const plants = await db.Plant.find({ user: req.user._id })
-    if (!plants) return res.status(404).json({error: 'Cannot get plants'})
-    return res.json(plants)
-  } catch (err) {
-    return res.status(500)
-  }
-}
 
 const show = async (req, res) => {
   try {
@@ -74,38 +64,32 @@ const destroy = async (req, res) => {
 };
 
 const donate = async (req, res) => {
-  // console.log(req.body)
-  // console.log(req.params.id)
   try {
-    
     const donatedPlant = await db.Plant.findByIdAndUpdate(req.params.id, { user: null} , { new: true });
-    console.log('beep')
-    console.log(donatedPlant)
     if (!donatedPlant) return res.status(404).json({error: 'Plant could not be donated'});
     return res.json(donatedPlant);
-
   } catch (err) {
-    console.log(err)
     return res.status(500).json(err);
   }; 
 }
 
-// const adopt = async (req, res) => {
-//   try {
-//     const adoptee = await db.User.findOne({ })
-//     const adoptedPlant = await db.Plant.findByIdAndUpdate({ _id: req.params.id }, { user: req.body.user}, { new: true});
+const adopt = async (req, res) => {
+  try {
+    const adoptedPlant = await db.Plant.findByIdAndUpdate({ _id: req.params.id }, req.body, { new: true});
+    if (!adoptedPlant) return res.status(404).json({error: 'Plant could not be adopted'});
+    return res.json(adoptedPlant);
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+}
 
-//   } catch (err) {
-//     return res.status(500).json(err);
-//   }
-// }
 
 module.exports = {
   index,
-  indexUser,
   show,
   create,
   update,
   destroy,
-  donate
+  donate,
+  adopt
 }
