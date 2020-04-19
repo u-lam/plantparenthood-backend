@@ -75,7 +75,7 @@ const donate = async (req, res) => {
 
 const adopt = async (req, res) => {
   try {
-    const adoptedPlant = await db.Plant.findByIdAndUpdate({ _id: req.params.id }, req.body, { new: true});
+    const adoptedPlant = await db.Plant.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!adoptedPlant) return res.status(404).json({error: 'Plant could not be adopted'});
     return res.json(adoptedPlant);
   } catch (err) {

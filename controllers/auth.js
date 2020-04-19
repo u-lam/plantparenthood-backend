@@ -4,8 +4,6 @@ const jwt = require('jsonwebtoken');
 
 
 const register = (req, res) => {
-  
-  if (!req.body.email || !req.body.password) return res.status(400).json({message: 'no email or password. These fields cannot be empty.'});
 
   db.User.findOne({ email: req.body.email}, (err, foundUser) => {
     if (err) return res.status(500).json(err);
@@ -76,7 +74,7 @@ const login = (req, res) => {
   })
 }
 
-// how to destroy the jwt token? 
+
 const logout = (req, res) => {
   if (!req.session.currentUser) return res.status(401).send('unauthorized');
   req.session.destroy(err => {
