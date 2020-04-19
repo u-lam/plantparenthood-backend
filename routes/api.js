@@ -14,14 +14,14 @@ router.get('/verify/:id', ctrl.auth.verify);
 // USER
 router.get('/users', ctrl.users.index); 
 router.get('/users/:id', ctrl.users.show);
-// need to add verifyToken to the below.
 router.put('/users/:id', verifyToken, ctrl.users.update);
 router.delete('/users/:id', verifyToken, ctrl.users.destroy);
 
 
 // PLANT
 router.get('/plants', ctrl.plants.index);   // plants that have been donated (no user), up for adoption
-router.get('/myplants', verifyToken, ctrl.plants.indexUser);  // plants that belong to a user
+router.put('/plants/donate/:id', verifyToken, ctrl.plants.donate) 
+router.put('/plants/adopt/:id', verifyToken, ctrl.plants.adopt) 
 router.get('/plants/:id', ctrl.plants.show);
 router.post('/plants', verifyToken, ctrl.plants.create);
 router.put('/plants/:id', verifyToken, ctrl.plants.update);
