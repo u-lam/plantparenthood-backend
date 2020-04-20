@@ -63,6 +63,7 @@ const destroy = async (req, res) => {
   };
 };
 
+
 const donate = async (req, res) => {
   try {
     const donatedPlant = await db.Plant.findByIdAndUpdate(req.params.id, { user: null} , { new: true });
@@ -72,6 +73,7 @@ const donate = async (req, res) => {
     return res.status(500).json(err);
   }; 
 }
+
 
 const adopt = async (req, res) => {
   try {

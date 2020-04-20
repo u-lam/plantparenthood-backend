@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken');
 
 
 const register = (req, res) => {
-
   db.User.findOne({ email: req.body.email}, (err, foundUser) => {
     if (err) return res.status(500).json(err);
     else if (foundUser) return res.status(400).json({message: 'This email is already registered.'})
@@ -65,7 +64,6 @@ const login = (req, res) => {
             lastName: foundUser.lastName
           }, process.env.JWT_SECRET,
           { expiresIn: "30 days"} );
-
         return res.status(200).json({message: 'User Logged In', token, foundUser});
       } else {
         return res.status(400).json(err);
@@ -89,6 +87,7 @@ const verify = (req, res) => {
     return res.json(foundUser)
   })
 }
+
 
 module.exports = {
   register,
