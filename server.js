@@ -3,10 +3,6 @@ const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-// ISSUES:
-// const session = require('express-session');
-// const MongoStore = require('connect-mongo')(session);
-
 require("dotenv").config();
 
 // port, routes, db
@@ -27,17 +23,6 @@ app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
-// app.use(
-//   session({
-//     store: new MongoStore({ url: "mongodb://localhost:27017/plants" }),
-//     secret: capstone, 
-//     resave: false,
-//     saveUninitialized: false,
-//     cookie: {
-//       maxAge: 1000 * 60 * 60 * 24 * 7 * 2  // expires in 2 weeks 
-//     }
-//   })
-// )
 
 // Routes
 app.use('/api/v1', routes.api);

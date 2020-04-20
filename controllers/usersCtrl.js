@@ -31,8 +31,8 @@ const destroy = (req, res) => {
       db.Plant.deleteMany({ user: req.params.id }, (err, deletedPlants) => {
         if (err) return res.status(400).json({status: 400, error: 'Can"t delete the user"s plant(s). Please try again'})
         return res.json(deletedUser);
+      });
   });
-});
 };
 
 
