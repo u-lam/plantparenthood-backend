@@ -42,18 +42,20 @@ Link: Coming soon!
 
 ### ERD Model 
 
- <img src="../plant-frontend/public/ERD.png">
+ <img src="./public/images/ERD.png">
  
 ### Wireframes
 
- <img src="../plant-frontend/public/Home.png">
+ <img src="./public/images/Home.png">
 
- <img src="../plant-frontend/public/About.png">
+ <img src="./public/images/About.png">
 
- <img src="../plant-frontend/public/Login.png">
+ <img src="./public/images/Login.png">
 
- <img src="../plant-frontend/public/Signup.png">
+ <img src="./public/images/Signup.png">
 
- <img src="../plant-frontend/public/Myplants.png">
+ <img src="./public/images/Myplants.png">
 
- <img src="../plant-frontend/public/User.png">
+ <img src="./public/images/plants.png">
+
+ <img src="./public/images/User.png">

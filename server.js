@@ -2,17 +2,15 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 
-require("dotenv").config();
+require('dotenv').config();
 
 // port, routes, db
 const PORT = process.env.PORT || 4005;
-// const PORT = 4005;
 const routes = require('./routes');
 const db = require('./models');
 
 // Cors
 const cors = require('cors');
-
 const corsOptions = {
   origin: ['http://localhost:3000'],
   methods: 'GET, POST, PUT, DELETE',
