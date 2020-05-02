@@ -1,5 +1,5 @@
 # Plant Parenthood :cactus:
-Link: Coming soon!
+Check it out <a href="https://plantslove.herokuapp.com/">here!</a> 
 
 ### Intro
   Houseplants are awesome! They are decorative, require little attention, and can even help purify the air around you. But what happens when you have to make a sudden move and can’t bring all your plants with you? Or when you downsize? Or if you just want to switch it up with different types of plants? 
